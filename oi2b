@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ -z "${OI2B_HOME}" ] ; then
+    OI2B_HOME=${HOME}/.bin/oi2b.git/
+fi
+
+if [ -z "${BLIH_USER}" ] ; then
+    BLIH_USER=$USER
+fi
+
+
+
+if [ $# -lt 1 ]; then exit 2; fi
+
+if [[ -x ${OI2B_HOME}/$1 ]]; then
+
+ /bin/bash ${OI2B_HOME}/$1 "${@:2}"
+ exit $?
+
+else
+    echo $0: file not found \"${OI2B_HOME}/$1\"
+fi
+
+
+

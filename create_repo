@@ -1,0 +1,30 @@
+#!/bin/bash
+
+if [[ $# != 1 ]]; then exit 1; fi
+
+read -p "creer le depot '$1'? [Y/N] " answer
+if [ "`echo $answer | cut -c1`" != "Y" ]; then exit 1; fi
+
+
+token=`python2 -c "import hashlib; import getpass; print(hashlib.sha512((getpass.getpass().decode('utf8'))).hexdigest())"`
+
+blih.py -u $BLIH_USER -t $token repository create $1 || exit 1
+blih.py -u $BLIH_USER -t $token repository setacl $1 ramassage-tek r || exit 1
+blih.py -u $BLIH_USER -t $token repository setacl $1 rush r || exit 1
+read -p 'add other users? ' users
+for i in $users
+do
+  blih.py -u $BLIH_USER -t $token repository setacl $1 $i rw;
+done
+
+echo
+echo repo $1 created.
+echo 'ACL rights:'
+blih.py -u $BLIH_USER -t $token repository getacl $1 || exit 1
+
+echo 
+
+read -p "cloner le depot ? [Y/N]" answer
+if [ "`echo $answer | cut -c1`" != "Y" ]; then exit 0; fi
+git clone $BLIH_USER@git.epitech.eu:/$BLIH_USER/$1
+
