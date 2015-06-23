@@ -15,10 +15,10 @@ windows accurding you got it a POSIX shell.
 put oi2b in PATH (or not), then
 
 to create a repo:
-	$ oi2b create_repo repo_name
+>	$ oi2b create_repo repo_name
 
 to clone a repo
-	$ oi2b get_repo [user/]repo_name
+>	$ oi2b get_repo [user/]repo_name
 
 
 # TODO:
