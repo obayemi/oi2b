@@ -1,6 +1,6 @@
 #!/bin/bash
 
-USAGE="$(basename $0)\t[-h|-u] [user/]reponame [output]"
+USAGE="$(basename $0)\t[user/]reponame [output]"
 
 function show_usage() {
     echo -e ${USAGE}
