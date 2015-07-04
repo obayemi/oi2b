@@ -23,3 +23,4 @@ to clone a repo
 
 # TODO:
 Maybe one day, if I'm not that lazy, I'll do a key uploading utility
+bash argparse --short and --help in modules

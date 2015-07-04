@@ -1,6 +1,39 @@
 #!/bin/bash
 
-if [[ $# < 1 ]]; then exit 1; fi
+USAGE="$(basename $0)\t[-h|-u] [user/]reponame [output]"
+
+function show_usage() {
+    echo -e ${USAGE}
+}
+
+function show_help() {
+    echo -e ${USAGE}
+    echo -e "\t[user/]reponame\tname of the repo if yours"
+    echo -e "\t\t\tpreceded by login of owner if other's"
+    echo -e "\toutput\tname of the direcoty to clone into"
+    echo -e "\t-h\t\tshow help"
+    echo -e "\t-u\t\tshow usage"
+    echo
+}
+
+
+while getopts "hu" opt; do
+    case "$opt" in
+        h)
+            show_help
+            exit 0
+            ;;
+        u)
+            show_usage
+            exit 0
+            ;;
+    esac
+done
+
+if [[ $# < 1 ]]; then
+    show_usage
+    exit 0
+fi
 
 if [[ $0 == */* ]]
 then

@@ -8,9 +8,39 @@ if [ -z "${BLIH_USER}" ] ; then
     BLIH_USER=$USER
 fi
 
+if [ -z "${BLIH_SSH_KEY}" ] ; then
+    # TODO
+    true
+fi
+
+function show_usage() {
+    find ./ -maxdepth 1 -not -name oi2b -executable -type f -exec bash {} -u \;
+}
+
+function show_help() {
+    find ./ -maxdepth 1 -not -name oi2b -executable -type f -exec bash {} -h \;
+}
 
 
-if [ $# -lt 1 ]; then exit 2; fi
+while getopts "hu" opt; do
+    case "$opt" in
+        h)
+            show_help
+            exit 0
+            ;;
+        u)
+            show_usage
+            exit 0
+            ;;
+    esac
+done
+
+
+
+if [ $# -lt 1 ] ; then
+    show_usage
+    exit 0
+fi
 
 if [[ -x ${OI2B_HOME}/$1 ]]; then
 
