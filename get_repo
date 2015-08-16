@@ -16,7 +16,6 @@ function show_help() {
     echo
 }
 
-
 while getopts "hu" opt; do
     case "$opt" in
         h)

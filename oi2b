@@ -1,17 +1,6 @@
 #!/bin/bash
 
-if [ -z "${OI2B_HOME}" ] ; then
-    OI2B_HOME=${HOME}/.bin/oi2b.git/
-fi
 
-if [ -z "${BLIH_USER}" ] ; then
-    BLIH_USER=$USER
-fi
-
-if [ -z "${BLIH_SSH_KEY}" ] ; then
-    # TODO
-    true
-fi
 
 function show_usage() {
     find ./ -maxdepth 1 -not -name oi2b -executable -type f -exec bash {} -u \;
@@ -22,34 +11,52 @@ function show_help() {
 }
 
 
-while getopts "hu" opt; do
-    case "$opt" in
-        h)
-            show_help
-            exit 0
-            ;;
-        u)
-            show_usage
-            exit 0
-            ;;
-    esac
-done
+
+function main {
+    if [ -z "${OI2B_HOME}" ] ; then
+        OI2B_HOME=${HOME}/.bin/oi2b.git/
+    fi
+
+    if [ -z "${BLIH_USER}" ] ; then
+        BLIH_USER=$USER
+    fi
+
+    if [ -z "${BLIH_SSH_KEY}" ] ; then
+        # TODO
+        true
+    fi
 
 
-
-if [ $# -lt 1 ] ; then
-    show_usage
-    exit 0
-fi
-
-if [[ -x ${OI2B_HOME}/$1 ]]; then
-
- /bin/bash ${OI2B_HOME}/$1 "${@:2}"
- exit $?
-
-else
-    echo $0: file not found \"${OI2B_HOME}/$1\"
-fi
+    while getopts "hu" opt; do
+        case "$opt" in
+            h)
+                local option='help'
+                ;;
+            u)
+                local option='usage'
+                ;;
+        esac
+    done
 
 
+    if [ "$#" -gt 1 ] ; then
+        if [[ -x ${OI2B_HOME}/$1 ]]; then
 
+         /bin/bash ${OI2B_HOME}/$1 "${@:2}"
+         return $?
+
+        else
+            echo $0: file not found \"${OI2B_HOME}/$1\"
+        fi
+    fi
+
+    if [[ -z "$option" || $option == "usage" ]]; then
+        show_usage
+    else [[ $option == 'help' ]]
+        show_help
+    fi
+    return 0
+}
+
+main $@
+exit $?
