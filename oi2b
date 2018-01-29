@@ -1,31 +1,23 @@
 #!/bin/bash
 
-
-
 function show_usage() {
-    find ./ -maxdepth 1 -not -name oi2b -executable -type f -exec bash {} -u \;
+    echo -e 'oi2b commands:\n'
+    find $OI2B_HOME -maxdepth 1 -not -name oi2b -executable -type f -exec bash {} -u \;
 }
 
 function show_help() {
-    find ./ -maxdepth 1 -not -name oi2b -executable -type f -exec bash {} -h \;
+    echo -e 'oi2b commands:\n'
+    find $OI2B_HOME -maxdepth 1 -not -name oi2b -executable -type f -exec bash {} -h \;
 }
 
 
 
 function main {
-    if [ -z "${OI2B_HOME}" ] ; then
-        OI2B_HOME=${HOME}/.bin/oi2b.git/
-    fi
+    OI2B_HOME=${OI2B_HOME:-${HOME}/.bin/oi2b.git/}
+    BLIH_USER=${BLIH_USER:-$USER}
 
-    if [ -z "${BLIH_USER}" ] ; then
-        BLIH_USER=$USER
-    fi
-
-    if [ -z "${BLIH_SSH_KEY}" ] ; then
-        # TODO
-        true
-    fi
-
+    # TODO: ssh key upload / generation / management
+    BLIH_SSH_KEY=${BLIH_SSH_KEY:-$"???"}
 
     while getopts "hu" opt; do
         case "$opt" in
@@ -39,14 +31,12 @@ function main {
     done
 
 
-    if [ "$#" -gt 1 ] ; then
+    if [ "$#" -ge 1 ] ; then
         if [[ -x ${OI2B_HOME}/$1 ]]; then
-
-         /bin/bash ${OI2B_HOME}/$1 "${@:2}"
-         return $?
-
+            /bin/bash ${OI2B_HOME}/$1 "${@:2}"
+            return $?
         else
-            echo $0: file not found \"${OI2B_HOME}/$1\"
+            echo "$0: module not found \"$1\""
         fi
     fi
 
@@ -59,4 +49,6 @@ function main {
 }
 
 main $@
+
+# finish by forwarding status of called module
 exit $?
