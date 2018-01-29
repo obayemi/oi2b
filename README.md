@@ -13,7 +13,7 @@ windows accurding you got it a POSIX shell.
 # Installation (for zsh)
 ```bash
 mkdir -p $HOME/.local/lib/
-git clone https://github.com/obayemi/oi2b ~/.local/lib/oi2n
+git clone https://github.com/obayemi/oi2b ~/.local/lib/oi2b
 ln -s $HOME/.local/lib/oi2b/oi2b $HOME/.local/bin/oi2b
 echo 'export OI2B_HOME=$HOME/.local/lib/oi2b/'
 echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.zshrc
