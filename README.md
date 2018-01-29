@@ -1,7 +1,6 @@
 oi2b
 ====
 
-
 obayemi interface to blih, because blih sucks, because you allways forget
 someone of your team, because you often forget ramassage-tek, because you
 don't want to use the command 'rendu' (if you do, trust me, you don't, just
@@ -11,16 +10,32 @@ want to clone easily your repos on whatever linux distribution, or even
 windows accurding you got it a POSIX shell.
 
 
-# Usage
-put oi2b in PATH (or not), then
+# Installation (for zsh)
+```bash
+mkdir -p $HOME/.local/lib/
+git clone https://github.com/obayemi/oi2b ~/.local/lib/oi2n
+ln -s $HOME/.local/lib/oi2b/oi2b $HOME/.local/bin/oi2b
+echo 'export OI2B_HOME=$HOME/.local/lib/oi2b/'
+echo 'export PATH=$HOME/.local/bin:$PATH' >> $HOME/.zshrc
+```
 
+
+# Usage
 to create a repo:
->	$ oi2b create_repo repo_name
+```bash
+oi2b create_repo repo_name
+```
+> note: when asked for new users, add a list of user's names separated by
+> spaces
 
 to clone a repo
->	$ oi2b get_repo [user/]repo_name
-
+```bash
+oi2b get_repo [user/]repo_name
+```
 
 # TODO:
-Maybe one day, if I'm not that lazy, I'll do a key uploading utility
-bash argparse --short and --help in modules
+Maybe one day, if I'm not that lazy:
+- key uploading utility
+- bash argparse --short and --help in module
+- module template to source to provide basic args recognition
+- bash / zsh completion

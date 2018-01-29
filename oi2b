@@ -1,15 +1,16 @@
 #!/bin/bash
 
+
 function show_usage() {
     echo -e 'oi2b commands:\n'
     find $OI2B_HOME -maxdepth 1 -not -name oi2b -executable -type f -exec bash {} -u \;
 }
 
+
 function show_help() {
     echo -e 'oi2b commands:\n'
     find $OI2B_HOME -maxdepth 1 -not -name oi2b -executable -type f -exec bash {} -h \;
 }
-
 
 
 function main {
@@ -29,7 +30,6 @@ function main {
                 ;;
         esac
     done
-
 
     if [ "$#" -ge 1 ] ; then
         if [[ -x ${OI2B_HOME}/$1 ]]; then
