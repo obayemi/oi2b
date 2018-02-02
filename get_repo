@@ -36,8 +36,8 @@ fi
 
 if [[ $0 == */* ]]
 then
-  git clone $BLIH_USER@git.epitech.eu:/$1 $2
+  git clone git@git.epitech.eu:/$1 $2
 else
-  git clone $BLIH_USER@git.epitech.eu:/$BLIH_USER/$1 $2
+  git clone git@git.epitech.eu:/$BLIH_USER/$1 $2
 fi
 

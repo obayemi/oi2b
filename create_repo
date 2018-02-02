@@ -34,29 +34,25 @@ if [[ $# != 1 ]]; then
     exit 0
 fi
 
-read -p "creer le depot '$1'? [Y/N] " answer
-if [ "`echo $answer | cut -c1`" != "Y" ]; then exit 1; fi
+read -p "Create Repository '$1' ? [y/n] " answer
+if [ "`echo $answer | cut -c1`" != "y" ]; then exit 1; fi
 
-
-token=`python2 -c "import hashlib; import getpass; print(hashlib.sha512((getpass.getpass().decode('utf8'))).hexdigest())"`
-
-blih.py -u $BLIH_USER -t $token repository create $1 || exit 1
-blih.py -u $BLIH_USER -t $token repository setacl $1 ramassage-tek r || exit 1
-blih.py -u $BLIH_USER -t $token repository setacl $1 rush r || exit 1
-read -p 'add other users? ' users
+blih -u $BLIH_USER repository create $1 || exit 1
+blih -u $BLIH_USER repository setacl $1 ramassage-tek r || exit 1
+read -p 'Add new users to the projet ? ' users
 for i in $users
 do
-  blih.py -u $BLIH_USER -t $token repository setacl $1 $i rw;
+  blih -u $BLIH_USER repository setacl $1 $i rw;
 done
 
 echo
 echo repo $1 created.
 echo 'ACL rights:'
-blih.py -u $BLIH_USER -t $token repository getacl $1 || exit 1
+blih -u $BLIH_USER repository getacl $1 || exit 1
 
 echo 
 
-read -p "cloner le depot ? [Y/N]" answer
-if [ "`echo $answer | cut -c1`" != "Y" ]; then exit 0; fi
-git clone $BLIH_USER@git.epitech.eu:/$BLIH_USER/$1
+read -p "Clone Repository '$1' ? [y/n]" answer
+if [ "`echo $answer | cut -c1`" != "y" ]; then exit 0; fi
+git clone git@git.epitech.eu:/$BLIH_USER/$1
 
